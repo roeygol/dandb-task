@@ -6,7 +6,6 @@ import { SearchController } from './controllers/SearchController';
 
 const cors = require('cors');
 
-
 export class App {
   public app: Application;
   private PORT = 3001;

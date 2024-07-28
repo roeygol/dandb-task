@@ -17,7 +17,6 @@ export class SearchController {
     try {
       let results = await this.queryService.search(query);
 
-      // Filter out results with undefined title or url
       results = results.filter(result => result.title !== undefined && result.url !== undefined);
 
       this.queryService.saveQuery(query);
@@ -36,27 +35,10 @@ export class SearchController {
 
     try {
       let results = await this.queryService.search(query);
-
-      const additionalResults = await this.queryService.search(query);
-      results = results.concat(additionalResults); // Add additional results
-
-
-      const additionalResults1 = await this.queryService.search(query);
-      results = results.concat(additionalResults1); // Add additional results
-
-
-      const additionalResults2 = await this.queryService.search(query);
-      results = results.concat(additionalResults2); // Add additional results
-
-
-      const additionalResults3 = await this.queryService.search(query);
-      results = results.concat(additionalResults3); // Add additional results
-
-      // Filter out results with undefined title or url
-      // results = results.filter(result => result.title !== undefined && result.url !== undefined);
+      results = results.filter(result => result.title !== undefined && result.url !== undefined);
 
       this.queryService.saveQuery(query);
-      res.json(results.concat(additionalResults3));
+      res.json(results);
 
     } catch (error) {
       res.status(500).send({ error: error instanceof Error ? error.message : 'Unknown error' });
@@ -65,7 +47,6 @@ export class SearchController {
 
   public historyHandler(req: Request, res: Response) {
     const history = this.queryService.getHistory();
-    // Reverse the history array to show the most recent search first
     res.json(history);
   }
 }

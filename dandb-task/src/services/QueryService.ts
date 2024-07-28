@@ -44,7 +44,7 @@ export class QueryService implements IQueryService {
   }
 
   public getHistory(): string[] {
-    return this.queryHistory;
+    return this.queryHistory.reverse();
   }
 
   public saveQuery(query: string): void {
