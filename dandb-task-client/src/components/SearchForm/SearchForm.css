@@ -1,0 +1,22 @@
+.search-form {
+  margin-left: 22%; /* adjust based on the width of the query history pane */
+  padding: 20px;
+}
+
+.search-form input {
+  padding: 10px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.search-form .search-button {
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-form .search-button:hover {
+  background-color: darkgreen;
+}

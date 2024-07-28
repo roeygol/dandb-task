@@ -1,0 +1,32 @@
+.results-container {
+  margin-left: 21%;
+  padding: 10px;
+}
+
+.result-item {
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}

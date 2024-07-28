@@ -1,0 +1,22 @@
+.query-history {
+  width: 20%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: white;
+}
+
+.query-item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.query-item:hover {
+  background: #f0f0f0;
+}
