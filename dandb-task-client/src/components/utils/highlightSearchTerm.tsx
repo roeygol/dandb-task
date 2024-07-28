@@ -1,15 +1,16 @@
 import React from 'react';
 
-const highlightSearchTerm = (text: string, searchTerm: string) => {
-  if (!text || !searchTerm) return { highlightedText: text, count: 0 };
+export const highlightSearchTerm = (text: string, query: string): React.ReactNode => {
+  if (!query.trim()) return text;
+  if (!text) return undefined;
 
-  const parts = text.split(new RegExp(`(${searchTerm})`, 'gi'));
-  const highlightedText = parts.map((part, index) =>
-    part.toLowerCase() === searchTerm.toLowerCase() ? <span key={index} style={{ backgroundColor: 'yellow' }}>{part}</span> : part
+  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <mark key={index}>{part}</mark>
+    ) : (
+      part
+    )
   );
-
-  const count = parts.filter(part => part.toLowerCase() === searchTerm.toLowerCase()).length;
-  return { highlightedText, count };
 };
-
-export default highlightSearchTerm;

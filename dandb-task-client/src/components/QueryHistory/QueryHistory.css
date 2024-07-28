@@ -1,22 +1,43 @@
 .query-history {
   width: 20%;
   height: 100vh;
-  overflow-y: auto;
-  padding: 10px;
-  border-right: 1px solid #ccc;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
   position: fixed;
   left: 0;
   top: 0;
-  background: white;
-}
-
-.query-item {
-  cursor: pointer;
+  background-color: #f0f0f0;
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
-.query-item:hover {
-  background: #f0f0f0;
+.query-history h3 {
+  margin-top: 0;
+}
+
+.query-history ul {
+  list-style: none;
+  padding: 0;
+}
+
+.query-history li {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.query-history li:hover {
+  background-color: #ddd;
+}
+
+.results {
+  margin-left: 21%;
+  padding: 10px;
+}
+
+.result-item {
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background-color: yellow;
 }

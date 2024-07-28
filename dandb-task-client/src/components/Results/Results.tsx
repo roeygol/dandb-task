@@ -1,71 +1,32 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import React, { useEffect } from 'react';
 import './Results.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { fetchResults } from '../../redux/querySlice';
+import { highlightSearchTerm } from '../utils/highlightSearchTerm';
 
 const Results: React.FC = () => {
   const results = useSelector((state: RootState) => state.query.results);
   const currentQuery = useSelector((state: RootState) => state.query.currentQuery);
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10;
+  const dispatch = useDispatch();
 
-  const indexOfLastResult = currentPage * resultsPerPage;
-  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = results.slice(indexOfFirstResult, indexOfLastResult);
-
-  const highlightSearchTerm = (text: string, term: string) => {
-    if (!text) return { highlightedText: text, count: 0 };
-
-    const regex = new RegExp(`(${term})`, 'gi');
-    const parts = text.split(regex);
-    const count = (text.match(regex) || []).length;
-
-    return {
-      highlightedText: parts.map((part, index) =>
-        regex.test(part) ? <span key={index} className="highlight">{part}</span> : part
-      ),
-      count
-    };
-  };
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, pageNumber: number) => {
-    event.preventDefault();
-    setCurrentPage(pageNumber);
-  };
-
-  const renderPagination = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(results.length / resultsPerPage); i++) {
-      pageNumbers.push(i);
+  useEffect(() => {
+    if (currentQuery) {
+      dispatch(fetchResults(currentQuery) as any);
     }
-
-    return (
-      <div className="pagination">
-        {pageNumbers.map(number => (
-          <button
-            key={number}
-            onClick={(e) => handleClick(e, number)}
-            className={number === currentPage ? 'active' : ''}
-          >
-            {number}
-          </button>
-        ))}
-      </div>
-    );
-  };
+  }, [currentQuery, dispatch]);
 
   return (
-    <div className="results-container">
-      {currentResults.map((result, index) => (
-        <div key={index} className="result-item">
+    <div className="results">
+      {results.length === 0 && <p>No results found.</p>}
+      {results.map((result, index) => (
+        <div className="result-item" key={index}>
           <a href={result.url} target="_blank" rel="noopener noreferrer">
-            {highlightSearchTerm(result.title, currentQuery).highlightedText}
+            {highlightSearchTerm(result.title, currentQuery)}
           </a>
-          <p>{highlightSearchTerm(result.snippet, currentQuery).highlightedText}</p>
+          <p>{highlightSearchTerm(result.snippet, currentQuery)}</p>
         </div>
       ))}
-      {renderPagination()}
     </div>
   );
 };

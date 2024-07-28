@@ -1,3 +1,4 @@
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 interface QueryState {
@@ -12,13 +13,13 @@ const initialState: QueryState = {
   currentQuery: '',
 };
 
-export const fetchHistory = createAsyncThunk('query/fetchHistory', async () => {
+export const fetchHistory = createAsyncThunk<string[]>('query/fetchHistory', async () => {
   const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/history`);
   if (!response.ok) throw new Error('Failed to fetch history');
   return response.json();
 });
 
-export const fetchResults = createAsyncThunk('query/fetchResults', async (query: string) => {
+export const fetchResults = createAsyncThunk<any[], string>('query/fetchResults', async (query) => {
   const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/search?q=${query}`);
   if (!response.ok) throw new Error('Failed to fetch results');
   return response.json();
@@ -32,7 +33,7 @@ const querySlice = createSlice({
       state.currentQuery = action.payload;
     },
     addQuery: (state, action) => {
-      state.history = [action.payload, ...state.history.filter(q => q !== action.payload)]; 
+      state.history = [action.payload, ...state.history];
     },
     setResults: (state, action) => {
       state.results = action.payload;

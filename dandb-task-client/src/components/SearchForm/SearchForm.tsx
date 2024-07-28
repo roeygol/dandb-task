@@ -9,7 +9,7 @@ const SearchForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSearch = () => {
-    if (query.trim() === '') return; // Validation: don't search if query is empty
+    if (query.trim() === '') return;
     dispatch(setCurrentQuery(query));
     dispatch(addQuery(query));
     dispatch(fetchResults(query));
